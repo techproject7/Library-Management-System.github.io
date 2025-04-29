@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="top-navbar">
+        <div class="logo">
+            <img src="https://img.freepik.com/free-vector/hand-drawn-flat-design-stack-books_23-2149334862.jpg" alt="Library Logo">
+            <span>Digital Library</span>
+        </div>
+        <div class="top-nav-links" id="topNavLinks">
+            <a href="#" onclick="showPublicSection('home')"><i class="fas fa-home"></i> Home</a>
+            <a href="#" onclick="showPublicSection('about')"><i class="fas fa-info-circle"></i> About</a>
+            <a href="#" onclick="showPublicSection('departments')"><i class="fas fa-book-open"></i> Departments</a>
+            <a href="#" onclick="showSection('login')" class="login-btn"><i class="fas fa-sign-in-alt"></i> Login</a>
+        </div>
+        <div class="hamburger" onclick="toggleMobileMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+    </div>
+
+    <div class="container">
+        <header id="loggedInHeader" style="display: none;">
+            <h1>Library Management System</h1>
+            <div id="userInfo" class="user-info"></div>
+            <nav id="mainNav" style="display: none;">
+                <!-- Navigation will be dynamically populated based on user role -->
+            </nav>
+        </header>
+
+        <!-- Public Sections -->
+        <section id="home" class="public-section active">
+            <div class="hero-section">
+                <div class="hero-content">
+                    <h1>Welcome to Digital Library</h1>
+                    <p>Discover a world of knowledge with our extensive collection of books across various departments.</p>
+                    <button onclick="showSection('login')" class="cta-button">Get Started</button>
+                </div>
+                <div class="hero-image">
+                    <img src="https://img.freepik.com/free-vector/hand-drawn-flat-design-stack-books-illustration_23-2149341898.jpg" alt="Library">
+                </div>
+            </div>
+
+            <div class="features-section">
+                <h2>Our Features</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <i class="fas fa-book fa-3x"></i>
+                        <h3>Extensive Collection</h3>
+                        <p>Access thousands of books across multiple departments and disciplines.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-laptop-code fa-3x"></i>
+                        <h3>IT Resources</h3>
+                        <p>Specialized collection of IT and computer science resources.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-id-card fa-3x"></i>
+                        <h3>Student ID System</h3>
+                        <p>Easy borrowing with your student ID for quick access.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-mobile-alt fa-3x"></i>
+                        <h3>Responsive Design</h3>
+                        <p>Access the library system from any device, anywhere.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="public-section">
+            <h2>About Our Library</h2>
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="https://img.freepik.com/free-vector/library-concept-illustration_114360-2788.jpg" alt="About Library">
+                </div>
+                <div class="about-text">
+                    <h3>Our Mission</h3>
+                    <p>Our mission is to provide accessible, high-quality educational resources to all students and faculty members. We believe in the power of knowledge and aim to create an environment that fosters learning and academic growth.</p>
+
+                    <h3>Our Collection</h3>
+                    <p>Our library houses a diverse collection of books, journals, and digital resources across various academic disciplines. We specialize in IT and computer science resources, providing the latest publications in technology and programming.</p>
+
+                    <h3>Library Services</h3>
+                    <ul>
+                        <li>Book borrowing with student ID</li>
+                        <li>Online catalog access</li>
+                        <li>Specialized department collections</li>
+                        <li>Digital resource access</li>
+                        <li>Study spaces and resources</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="departments" class="public-section">
+            <h2>Library Departments</h2>
+            <div class="departments-grid">
+                <div class="department-card" onclick="showPublicDepartment('it')">
+                    <img src="https://img.freepik.com/free-vector/programming-concept-illustration_114360-1351.jpg" alt="IT Department">
+                    <h3>Information Technology</h3>
+                    <p>Books on programming, networking, cybersecurity, and more.</p>
+                </div>
+                <div class="department-card" onclick="showPublicDepartment('science')">
+                    <img src="https://img.freepik.com/free-vector/hand-drawn-science-education-background_23-2148499325.jpg" alt="Science Department">
+                    <h3>Science</h3>
+                    <p>Physics, chemistry, biology, and other scientific disciplines.</p>
+                </div>
+                <div class="department-card" onclick="showPublicDepartment('literature')">
+                    <img src="https://img.freepik.com/free-vector/hand-drawn-literature-background_23-2149088744.jpg" alt="Literature Department">
+                    <h3>Literature</h3>
+                    <p>Fiction, poetry, drama, and literary criticism.</p>
+                </div>
+                <div class="department-card" onclick="showPublicDepartment('business')">
+                    <img src="https://img.freepik.com/free-vector/business-background-design_1300-363.jpg" alt="Business Department">
+                    <h3>Business</h3>
+                    <p>Management, marketing, finance, and economics.</p>
+                </div>
+            </div>
+
+            <div id="departmentDetails" class="department-details" style="display: none;">
+                <div class="department-header">
+                    <h3 id="departmentTitle">Department Name</h3>
+                    <button onclick="hideDepartmentDetails()" class="close-btn"><i class="fas fa-times"></i></button>
+                </div>
+                <div id="departmentContent" class="department-content">
+                    <!-- Department content will be populated dynamically -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Login Section -->
+        <section id="login" class="auth-section">
+            <h2>Login</h2>
+            <div class="form-container">
+                <form id="loginForm">
+                    <input type="text" id="loginUsername" placeholder="Username or Student ID" required>
+                    <input type="password" id="loginPassword" placeholder="Password" required>
+                    <button type="submit">Login</button>
+                </form>
+                <p class="form-footer">Don't have an account? <a href="#" onclick="showSection('register')">Register</a></p>
+            </div>
+        </section>
+
+        <!-- Register Section -->
+        <section id="register" class="auth-section">
+            <h2>Register</h2>
+            <div class="form-container">
+                <form id="registerForm">
+                    <input type="text" id="registerName" placeholder="Full Name" required>
+                    <input type="text" id="registerStudentId" placeholder="Student ID (for students)" id="studentIdField">
+                    <input type="text" id="registerUsername" placeholder="Username" required>
+                    <input type="email" id="registerEmail" placeholder="Email" required>
+                    <input type="password" id="registerPassword" placeholder="Password" required>
+                    <select id="registerRole" required onchange="toggleStudentIdField()">
+                        <option value="">Select Role</option>
+                        <option value="student">Student</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                    <button type="submit">Register</button>
+                </form>
+                <p class="form-footer">Already have an account? <a href="#" onclick="showSection('login')">Login</a></p>
+            </div>
+        </section>
+
+        <!-- Admin Dashboard Section -->
+        <section id="adminDashboard" class="user-section">
+            <h2>Admin Dashboard</h2>
+            <div class="dashboard-header">
+                <img src="https://img.freepik.com/free-vector/dashboard-concept-illustration_114360-4347.jpg" alt="Admin Dashboard" class="dashboard-image">
+            </div>
+            <div class="dashboard-stats">
+                <div class="stat-card">
+                    <i class="fas fa-book fa-2x"></i>
+                    <h3>Total Books</h3>
+                    <p id="totalBooks">0</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-book-open fa-2x"></i>
+                    <h3>Available Books</h3>
+                    <p id="availableBooks">0</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-users fa-2x"></i>
+                    <h3>Total Students</h3>
+                    <p id="totalMembers">0</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-exchange-alt fa-2x"></i>
+                    <h3>Active Borrowings</h3>
+                    <p id="activeBorrowings">0</p>
+                </div>
+            </div>
+            <div class="quick-actions">
+                <h3>Quick Actions</h3>
+                <div class="action-buttons">
+                    <button onclick="showSection('books')"><i class="fas fa-book"></i> Manage Books</button>
+                    <button onclick="showSection('members')"><i class="fas fa-users"></i> Manage Students</button>
+                    <button onclick="showSection('transactions')"><i class="fas fa-exchange-alt"></i> Manage Transactions</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Student Dashboard Section -->
+        <section id="studentDashboard" class="user-section">
+            <h2>Student Dashboard</h2>
+            <div class="dashboard-header">
+                <img src="https://img.freepik.com/free-vector/students-watching-webinar-computer-studying-online_74855-15522.jpg" alt="Student Dashboard" class="dashboard-image">
+            </div>
+            <div class="student-info-card">
+                <div class="student-avatar">
+                    <i class="fas fa-user-graduate fa-4x"></i>
+                </div>
+                <div class="student-details">
+                    <h3 id="studentName">Student Name</h3>
+                    <p>Student ID: <span id="studentIdDisplay">-</span></p>
+                    <p>Books Borrowed: <span id="studentBorrowedCount">0</span>/<span id="maxBooks">3</span></p>
+                </div>
+            </div>
+            <div class="quick-actions">
+                <h3>Quick Actions</h3>
+                <div class="action-buttons">
+                    <button onclick="showSection('books')"><i class="fas fa-book"></i> Browse Books</button>
+                    <button onclick="showSection('myBooks')"><i class="fas fa-book-reader"></i> My Books</button>
+                    <button onclick="showSection('profile')"><i class="fas fa-user"></i> My Profile</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Books Section -->
+        <section id="books" class="user-section">
+            <h2>Books Management</h2>
+            <div class="department-filter">
+                <h3>Filter by Department</h3>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-department="all">All</button>
+                    <button class="filter-btn" data-department="it">IT</button>
+                    <button class="filter-btn" data-department="science">Science</button>
+                    <button class="filter-btn" data-department="literature">Literature</button>
+                    <button class="filter-btn" data-department="business">Business</button>
+                </div>
+            </div>
+            <div id="adminBookControls" class="form-container" style="display: none;">
+                <div id="addBookSection">
+                    <h3><i class="fas fa-plus-circle"></i> Add New Book</h3>
+                    <form id="addBookForm">
+                        <div class="form-group">
+                            <label for="bookTitle">Title:</label>
+                            <input type="text" id="bookTitle" placeholder="Book Title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="bookAuthor">Author:</label>
+                            <input type="text" id="bookAuthor" placeholder="Author" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="bookISBN">ISBN:</label>
+                            <input type="text" id="bookISBN" placeholder="ISBN" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="bookDepartment">Department:</label>
+                            <select id="bookDepartment" required>
+                                <option value="">Select Department</option>
+                                <option value="it">Information Technology</option>
+                                <option value="science">Science</option>
+                                <option value="literature">Literature</option>
+                                <option value="business">Business</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="bookQuantity">Quantity:</label>
+                            <input type="number" id="bookQuantity" placeholder="Quantity" min="1" value="1" required>
+                        </div>
+                        <button type="submit" class="add-btn"><i class="fas fa-plus"></i> Add Book</button>
+                    </form>
+                </div>
+
+                <div id="editBookSection" style="display: none;">
+                    <h3><i class="fas fa-edit"></i> Edit Book</h3>
+                    <form id="editBookForm">
+                        <input type="hidden" id="editBookId">
+                        <div class="form-group">
+                            <label for="editBookTitle">Title:</label>
+                            <input type="text" id="editBookTitle" placeholder="Book Title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editBookAuthor">Author:</label>
+                            <input type="text" id="editBookAuthor" placeholder="Author" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editBookISBN">ISBN:</label>
+                            <input type="text" id="editBookISBN" placeholder="ISBN" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editBookDepartment">Department:</label>
+                            <select id="editBookDepartment" required>
+                                <option value="">Select Department</option>
+                                <option value="it">Information Technology</option>
+                                <option value="science">Science</option>
+                                <option value="literature">Literature</option>
+                                <option value="business">Business</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="editBookTotalQuantity">Total Quantity:</label>
+                            <input type="number" id="editBookTotalQuantity" placeholder="Total Quantity" min="1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editBookAvailable">Available Copies:</label>
+                            <input type="number" id="editBookAvailable" placeholder="Available Copies" min="0" required>
+                            <small class="form-hint">Available copies must be less than or equal to total quantity</small>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="save-btn"><i class="fas fa-save"></i> Save Changes</button>
+                            <button type="button" class="cancel-btn" onclick="hideEditBookForm()"><i class="fas fa-times"></i> Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="list-container">
+                <h3>Book List</h3>
+                <div id="booksList" class="books-grid"></div>
+            </div>
+        </section>
+
+        <!-- Members Section (Admin Only) -->
+        <section id="members" class="user-section">
+            <h2>Students Management</h2>
+            <div class="search-container">
+                <input type="text" id="studentSearch" placeholder="Search by name or student ID...">
+                <button onclick="searchStudents()"><i class="fas fa-search"></i></button>
+            </div>
+            <div class="list-container">
+                <h3>Students List</h3>
+                <div id="membersList" class="list"></div>
+            </div>
+        </section>
+
+        <!-- Transactions Section -->
+        <section id="transactions" class="user-section">
+            <h2>Transactions</h2>
+            <div class="transactions-header">
+                <img src="https://img.freepik.com/free-vector/tiny-people-examining-operating-system-error-warning-web-page-isolated-flat-illustration_74855-11104.jpg" alt="Transactions" class="section-image">
+            </div>
+            <div id="borrowFormContainer" class="form-container">
+                <h3><i class="fas fa-book-reader"></i> Issue Book to Student</h3>
+                <form id="borrowForm">
+                    <div class="form-group">
+                        <label for="bookSelect"><i class="fas fa-book"></i> Select Book:</label>
+                        <select id="bookSelect" required>
+                            <option value="">Select Book</option>
+                        </select>
+                    </div>
+
+                    <div id="adminStudentIdContainer" class="form-group">
+                        <label for="studentIdInput"><i class="fas fa-id-card"></i> Student ID:</label>
+                        <div class="input-with-button">
+                            <input type="text" id="studentIdInput" placeholder="Enter Student ID" required>
+                            <button type="button" id="verifyStudentBtn" class="verify-btn"><i class="fas fa-check-circle"></i> Verify</button>
+                        </div>
+                    </div>
+
+                    <div id="studentInfoDisplay" style="display: none;" class="student-info-display">
+                        <!-- Student info will be displayed here after verification -->
+                    </div>
+
+                    <button type="submit" class="issue-btn"><i class="fas fa-paper-plane"></i> Issue Book</button>
+                </form>
+            </div>
+
+            <div class="list-container">
+                <div class="section-header">
+                    <h3><i class="fas fa-exchange-alt"></i> Active Borrowings</h3>
+                    <div class="header-actions">
+                        <button id="refreshTransactionsBtn" onclick="updateTransactionsList()"><i class="fas fa-sync-alt"></i> Refresh</button>
+                    </div>
+                </div>
+                <div id="transactionsList" class="list"></div>
+            </div>
+        </section>
+
+        <!-- My Books Section (Student Only) -->
+        <section id="myBooks" class="user-section">
+            <h2>My Books</h2>
+            <div class="my-books-header">
+                <img src="https://img.freepik.com/free-vector/tiny-people-examining-operating-system-error-warning-web-page-isolated-flat-illustration_74855-11104.jpg" alt="My Books" class="section-image">
+            </div>
+            <div class="list-container">
+                <h3>Currently Borrowed Books</h3>
+                <div id="myBooksList" class="list"></div>
+            </div>
+            <div class="info-box">
+                <p>You can borrow up to <span id="maxBooksInfo">3</span> books at a time.</p>
+                <p>Currently borrowed: <span id="borrowedCount">0</span> books</p>
+            </div>
+        </section>
+
+        <!-- Profile Section -->
+        <section id="profile" class="user-section">
+            <h2>My Profile</h2>
+            <div class="profile-header">
+                <div class="profile-avatar">
+                    <i class="fas fa-user-circle fa-6x"></i>
+                </div>
+            </div>
+            <div class="form-container">
+                <div id="profileInfo" class="profile-info">
+                    <!-- Profile info will be populated dynamically -->
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modal for delete confirmation -->
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-exclamation-triangle"></i> Confirm Deletion</h3>
+                <span class="close-modal" onclick="closeModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p id="deleteModalMessage">Are you sure you want to delete this item?</p>
+            </div>
+            <div class="modal-footer">
+                <button id="confirmDeleteBtn" class="delete-btn"><i class="fas fa-trash"></i> Delete</button>
+                <button onclick="closeModal()" class="cancel-btn"><i class="fas fa-times"></i> Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Digital Library</h3>
+                <p>Your gateway to knowledge and learning resources.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#" onclick="showPublicSection('home')">Home</a></li>
+                    <li><a href="#" onclick="showPublicSection('about')">About</a></li>
+                    <li><a href="#" onclick="showPublicSection('departments')">Departments</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-envelope"></i> library@example.com</p>
+                <p><i class="fas fa-phone"></i> +1 234 567 8900</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 Digital Library Management System. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
